@@ -32,7 +32,7 @@ namespace SimpleDXApp
 
         public virtual void YawBy(float deltaYaw)
         {
-            _yaw = deltaYaw;
+            _yaw += deltaYaw;
             LimitAngleByPlusMinusPi(ref _yaw);
         }
 

@@ -32,7 +32,7 @@ namespace SimpleDXApp
             _renderer.CreateConstantBuffer();
 
             Loader loader = new Loader(_directX3DGraphics);
-            _cube = loader.MakeParal(new Vector4(0.0f, 0.0f, 0.0f, 1.0f), 0.0f, 0.0f, 0.0f);
+            _cube = loader.MakePlane(new Vector4(0.0f, 0.0f, 0.0f, 1.0f), 0.0f, 0.0f, 0.0f, 200);
             _camera = new Camera(new Vector4(0.0f, 1.0f, -4.0f, 1.0f)); //
             _timeHelper = new TimeHelper();
             loader.Dispose();
@@ -76,8 +76,10 @@ namespace SimpleDXApp
             _y += ystep;
             _x += xstep;
             _z += zstep;
+            _cube.YawBy(_timeHelper.DeltaT);
+            _camera.MoveBy(ystep * (float)Math.Sin(_camera._yaw), zstep, ystep * (float)Math.Cos(_camera._yaw));
+            _camera.MoveBy(xstep * (float)Math.Sin(_camera._yaw + Math.PI / 2), zstep, xstep * (float)Math.Cos(_camera._yaw + Math.PI / 2));
 
-            _cube.MoveBy(xstep, ystep, zstep);
 
             _camera.CameraYawBy(Cursor.Position.X / 800f);
             _camera.PitchBy(Cursor.Position.Y / 800f);

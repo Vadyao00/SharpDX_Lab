@@ -16,7 +16,7 @@ namespace SimpleDXApp
         public struct VertexDataStruct
         {
             public Vector4 position;
-            public Vector2 texCoord;
+            public Vector4 color;
         }
         [StructLayout(LayoutKind.Sequential)]
         public struct PerObjectConstantBuffer
@@ -58,7 +58,7 @@ namespace SimpleDXApp
             {
                 new InputElement("POSITION", 0, Format.R32G32B32A32_Float,
                     0, 0),
-                new InputElement("texCoord", 0, Format.R32G32_Float,
+                new InputElement("COLOR", 0, Format.R32G32B32A32_Float,
                     16, 0)
             };
 

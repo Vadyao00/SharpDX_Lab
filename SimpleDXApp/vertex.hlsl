@@ -1,13 +1,14 @@
 ﻿struct vertexData
 {
 	float4 position : POSITION;
-	float2 texCoord : TEXCOORD0;
+	float4 color : COLOR;
 };
 
 struct pixelData
 {
 	float4 position : SV_POSITION;
-    float2 TexCoord : TEXCOORD0;
+    float4 color : COLOR;
+    float4 worldPos : POSITION;
 };
 
 cbuffer perObjectData : register(b0) {
@@ -17,17 +18,24 @@ cbuffer perObjectData : register(b0) {
 	float2   _padding;
 }
 
+
+
+
 pixelData vertexShader(vertexData input) {
 	pixelData output = (pixelData)0;
 	float4 position = input.position;
 
-	float scale = 0.5f * sin(time * 0.785f) + 1.0f;
-	if (timeScaling > 0)
-        position.xyz = mul(1, position.xyz); //scale первый параметр
+    float y = 2 * pow(position.x, 2)/30 - 2 * pow(position.z,2)/30;
+	
 
+	
+    position.y = y;
+    output.worldPos = position;
+	
+    output.color = float4(position.y / 5, 1, 1, 1);
+	
 	output.position =
 		mul(position, worldViewProjectionMatrix);
-    output.TexCoord = input.texCoord;
 
 	return output;
 }

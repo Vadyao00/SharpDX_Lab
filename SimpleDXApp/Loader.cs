@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using SharpDX;
 using SharpDX.Direct3D11;
 
@@ -13,159 +14,44 @@ namespace SimpleDXApp
             _directX3DGraphics = directX3DGraphics;
         }
 
-        public MeshObject MakeParal(Vector4 position, float yaw, float pitch, float roll)
+        public MeshObject MakePlane(Vector4 position, float yaw, float pitch, float roll, uint n)
         {
-            Renderer.VertexDataStruct[] vertices =
-                new Renderer.VertexDataStruct[24]
-                {
-                    new Renderer.VertexDataStruct // front 0
-                    {
-                        position = new Vector4(-1.0f, 1.5f, -0.5f, 1.0f),
-                        texCoord = new Vector2(0.07f, 0.2f)
-                    },
-                    new Renderer.VertexDataStruct // front 1
-                    {
-                        position = new Vector4(-1.0f, -1.5f, -0.5f, 1.0f),
-                        texCoord = new Vector2(0.07f, 0.8f)
-                    },
-                    new Renderer.VertexDataStruct // front 2
-                    {
-                        position = new Vector4(1.0f, -1.5f, -0.5f, 1.0f),
-                        texCoord = new Vector2(0.34f, 0.8f)
-                    },
-                    new Renderer.VertexDataStruct // front 3
-                    {
-                        position = new Vector4(1.0f, 1.5f, -0.5f, 1.0f),
-                        texCoord = new Vector2(0.34f, 0.2f)
-                    },
-                    new Renderer.VertexDataStruct // right 4
-                    {
-                        position = new Vector4(1.0f, 1.5f, -0.5f, 1.0f),
-                        texCoord = new Vector2(0.34f, 0.2f)
-                    },
-                    new Renderer.VertexDataStruct // right 5
-                    {
-                        position = new Vector4(1.0f, -1.5f, -0.5f, 1.0f),
-                        texCoord = new Vector2(0.34f, 0.8f)
-                    },
-                    new Renderer.VertexDataStruct // right 6
-                    {
-                        position = new Vector4(1.0f, -1.5f, 0.5f, 1.0f),
-                        texCoord = new Vector2(0.48f, 0.8f)
-                    },
-                    new Renderer.VertexDataStruct // right 7
-                    {
-                        position = new Vector4(1.0f, 1.5f, 0.5f, 1.0f),
-                        texCoord = new Vector2(0.48f, 0.2f)
-                    },
-                    new Renderer.VertexDataStruct // back 8
-                    {
-                        position = new Vector4(1.0f, 1.5f, 0.5f, 1.0f),
-                        texCoord = new Vector2(0.48f, 0.2f)
-                    },
-                    new Renderer.VertexDataStruct // back 9
-                    {
-                        position = new Vector4(1.0f, -1.5f, 0.5f, 1.0f),
-                        texCoord = new Vector2(0.48f, 0.8f)
-                    },
-                    new Renderer.VertexDataStruct // back 10
-                    {
-                        position = new Vector4(-1.0f, -1.5f, 0.5f, 1.0f),
-                        texCoord = new Vector2(0.78f, 0.8f)
-                    },
-                    new Renderer.VertexDataStruct // back 11
-                    {
-                        position = new Vector4(-1.0f, 1.5f, 0.5f, 1.0f),
-                        texCoord = new Vector2(0.78f, 0.2f)
-                    },
-                    new Renderer.VertexDataStruct // left 12
-                    {
-                        position = new Vector4(-1.0f, 1.5f, 0.5f, 1.0f),
-                        texCoord = new Vector2(0.78f, 0.2f)
-                    },
-                    new Renderer.VertexDataStruct // left 13
-                    {
-                        position = new Vector4(-1.0f, -1.5f, 0.5f, 1.0f),
-                        texCoord = new Vector2(0.78f, 0.8f)
-                    },
-                    new Renderer.VertexDataStruct // left 14
-                    {
-                        position = new Vector4(-1.0f, -1.5f, -0.5f, 1.0f),
-                        texCoord = new Vector2(0.94f, 0.8f)
-                    },
-                    new Renderer.VertexDataStruct // left 15
-                    {
-                        position = new Vector4(-1.0f, 1.5f, -0.5f, 1.0f),
-                        texCoord = new Vector2(0.94f, 0.2f)
-                    },
-                    new Renderer.VertexDataStruct // top 16
-                    {
-                        position = new Vector4(-1.0f, 1.5f, 0.5f, 1.0f),
-                        texCoord = new Vector2(0.48f, 0.8f)
-                    },
-                    new Renderer.VertexDataStruct // top 17
-                    {
-                        position = new Vector4(-1.0f, 1.5f, -0.5f, 1.0f),
-                        texCoord = new Vector2(0.48f, 0.97f)
-                    },
-                    new Renderer.VertexDataStruct // top 18
-                    {
-                        position = new Vector4(1.0f, 1.5f, -0.5f, 1.0f),
-                        texCoord = new Vector2(0.79f, 0.97f)
-                    },
-                    new Renderer.VertexDataStruct // top 19
-                    {
-                        position = new Vector4(1.0f, 1.5f, 0.5f, 1.0f),
-                        texCoord = new Vector2(0.79f, 0.8f)
-                    },
-                    new Renderer.VertexDataStruct // bottom 20
-                    {
-                        position = new Vector4(-1.0f, -1.5f, -0.5f, 1.0f),
-                        texCoord = new Vector2(0.79f, 0.2f)
-                    },
-                    new Renderer.VertexDataStruct // bottom 21
-                    {
-                        position = new Vector4(-1.0f, -1.5f, 0.5f, 1.0f),
-                        texCoord = new Vector2(0.79f, 0.04f)
-                    },
-                    new Renderer.VertexDataStruct // bottom 22
-                    {
-                        position = new Vector4(1.0f, -1.5f, 0.5f, 1.0f),
-                        texCoord = new Vector2(0.48f, 0.04f)
-                    },
-                    new Renderer.VertexDataStruct // bottom 23
-                    {
-                        position = new Vector4(1.0f, -1.5f, -0.5f, 1.0f),
-                        texCoord = new Vector2(0.48f, 0.2f)
-                    }
-                };
-            uint[] indices = new uint[36]
-            {
-                0, 1, 2,        2, 3, 0,
-                4, 5, 6,        6, 7, 4,
-                8, 9, 10,       10, 11, 8,
-                12, 13, 14,     14, 15, 12,
-                16, 17, 18,     18, 19, 16,
-                22, 23, 20,     20, 21, 22,
-            };
-
-            Texture2D texture = TextureLoader.LoadTexture(_directX3DGraphics.Device, "D:\\Labs\\5sem\\ПГиЗ\\2\\фото\\razvertka.png");
-            ShaderResourceView textureView = new ShaderResourceView(_directX3DGraphics.Device, texture);
-            var samplerDescription = new SamplerStateDescription()
-            {
-                Filter = Filter.MinMagMipLinear, // Линейная фильтрация
-                AddressU = TextureAddressMode.Mirror, // Зацикливание текстуры по оси U
-                AddressV = TextureAddressMode.Mirror, // Зацикливание текстуры по оси V
-                AddressW = TextureAddressMode.Mirror, // Зацикливание текстуры по оси W
-                ComparisonFunction = Comparison.Never,
-                MinimumLod = 0,
-                MaximumLod = float.MaxValue
-            };
-            var samplerState = new SamplerState(_directX3DGraphics.Device, samplerDescription);
-            _directX3DGraphics.DeviceContext.PixelShader.SetShaderResources(0, textureView);
-            _directX3DGraphics.DeviceContext.PixelShader.SetSampler(0, samplerState);
+            n++;
+            Renderer.VertexDataStruct[] vertices = FillPlane(n, 20.0f / n);
+            uint[] indices = FillIndices(n);
             return new MeshObject(_directX3DGraphics, position,
                 yaw, pitch, roll, vertices, indices);
+        }
+        private Renderer.VertexDataStruct[] FillPlane(uint n, float step)
+        {
+            var verts = new Renderer.VertexDataStruct[n * n];
+            float size = (n - 1) * step;
+            float curX = -size / 2;
+            float curY = -size / 2;
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    verts[n * i + j] = new Renderer.VertexDataStruct() { position = new Vector4(curX + i * step, 0, curY + j * step, 1), color = new Vector4(0, 0,0,0) };
+            return verts;
+        }
+        private uint[] FillIndices(uint n)
+        {
+            List<uint> indices = new List<uint>();
+            uint ptr = 0;
+            for (uint j = 0; j < (n - 1) * ((n - 1) * 6); j += (n - 1) * 6)
+            {
+
+                for (uint i = 0; i < (n - 1) * 6; i += 6)
+                {
+                    indices.Add(i / 6 + ptr);
+                    indices.Add(i / 6 + n + ptr);
+                    indices.Add(i / 6 + n + 1 + ptr);
+                    indices.Add(i / 6 + ptr);
+                    indices.Add(i / 6 + n + 1 + ptr);
+                    indices.Add(i / 6 + 1 + ptr);
+                }
+                ptr += n;
+            }
+            return indices.ToArray();
         }
 
         public void Dispose()
